@@ -315,9 +315,10 @@ function pjax(options) {
     xhr.onreadystatechange = $.noop
     xhr.abort()
   }
-
-  // Updates the URL in this options obj to be in sling format
+  
   pjax.options = options
+  /***** Added call to add selectors to options (options.url) *********/
+  options = addSelector(options, 'pjax');
   var xhr = pjax.xhr = $.ajax(options)
 
   if (xhr.readyState > 0) {
@@ -333,6 +334,15 @@ function pjax(options) {
   }
 
   return pjax.xhr
+}
+
+// New method to add Selectors to options.url
+function addSelector(options, selector) {
+    var i = options.url.indexOf('.');
+    var start = options.url.substring(0, i);
+    var end = options.url.substring(i, path.length);
+    options.url = start + '.' + selector + end;
+    return options;
 }
 
 // Public: Reload current page with pjax.
