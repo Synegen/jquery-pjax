@@ -316,6 +316,7 @@ function pjax(options) {
     xhr.abort()
   }
 
+  // Updates the URL in this options obj to be in sling format
   pjax.options = options
   var xhr = pjax.xhr = $.ajax(options)
 
